@@ -10,7 +10,7 @@ alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n'
             'v', 'w', 'x', 'y', 'z']
 ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
             'V', 'W', 'X', 'Y', 'Z']
-SAVE_PATH = "/"
+SAVE_PATH = "./"
 CHAR_SET = number + alphabet + ALPHABET
 CHAR_SET_LEN = len(CHAR_SET)
 IMAGE_HEIGHT = 60
