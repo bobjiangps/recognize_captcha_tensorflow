@@ -84,18 +84,23 @@ if __name__ == "__main__":
 
     train_dir = "train"
     test_dir = "test"
-    ## sample_images, sample_labels = get_sample_data_from_file(train_dir, size=500, section=1, height=img_height, width=img_width, cap_len=captcha_str_length, characters=chars)
-    # new_model = get_model()
-    # for loop in range(10):
-    #     sample_images, sample_labels = get_sample_data_from_file(size=500, height=img_height,
-    #                                                              width=img_width, cap_len=captcha_str_length,
-    #                                                              characters=chars)
-    #     train(new_model, sample_images, sample_labels)
-    #     if loop % 10 == 0:
-    #         new_model.save("./model")
-    #         print("save model when loop %d" % loop)
-    #         single_image, single_text = get_sample_data_from_file("train", 1)
-    #         print(nc.convert_to_text(single_text[0]))
-    single_image, single_text = get_sample_data_from_file("train", 2, characters=chars)
-    print(nc.convert_to_text(single_text[1], chars))
+    # sample_images, sample_labels = get_sample_data_from_file(train_dir, size=500, section=1, height=img_height, width=img_width, cap_len=captcha_str_length, characters=chars)
 
+    new_model = get_model()
+    for loop in range(1000):
+        sample_images, sample_labels = get_sample_data_by_generator(size=500, height=img_height,
+                                                                    width=img_width, cap_len=captcha_str_length,
+                                                                    characters=chars)
+        print("loop: ", loop+1, ", image: ", sample_images.shape, ", labels: ", sample_labels.shape)
+        train(new_model, sample_images, sample_labels)
+        if loop % 10 == 0:
+            new_model.save("./model")
+            print("save model when loop %d" % loop)
+
+    print("try to predict one captcha file")
+    single_image, single_text = get_sample_data_from_file("test", 1, characters=chars)
+    print(np.argmax(single_text, axis=2))
+    print("actual text: ", nc.convert_to_text(np.argmax(single_text, axis=2)[0], chars))
+    prediction = new_model.predict(single_image)
+    print(np.argmax(prediction, axis=2))
+    print("predict text: ", nc.convert_to_text(np.argmax(prediction, axis=2)[0], chars))

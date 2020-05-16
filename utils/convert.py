@@ -63,9 +63,13 @@ class NewConvert:
     @staticmethod
     def convert_to_text(vector, character):
         text = ""
-        for v in vector:
-            for i, c in enumerate(v):
-                if c > 0:
-                    text += character[i]
-                    break
+        for i, c in enumerate(vector):
+            text += character[c]
         return text
+        # text = ""
+        # for v in vector:
+        #     for i, c in enumerate(v):
+        #         if c > 0:
+        #             text += character[i]
+        #             break
+        # return text
